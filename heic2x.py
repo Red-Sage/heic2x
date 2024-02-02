@@ -11,7 +11,7 @@ def convertFile(fname, outputFolder, extension):
 
 def loadFiles(folder, outputFolder, extension):
     folder = Path(folder)
-    files = folder.match('*.heic')
+    files = list(folder.glob('*.heic'))
     for file in files:
         convertFile(file, outputFolder, extension)
         
