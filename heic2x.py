@@ -5,15 +5,15 @@ from pathlib import Path
 
 register_heif_opener()
 
-def convertFile(fname, outputFolder):
+def convertFile(fname, outputFolder, extension):
     image = Image.open(fname)
-    image.save(outputFolder / fname.with_suffix(".jpg").name)
+    image.save(outputFolder / fname.with_suffix(extension).name)
 
-def loadFiles(folder, outputFolder):
+def loadFiles(folder, outputFolder, extension):
     folder = Path(folder)
     files = folder.match('*.heic')
     for file in files:
-        convertFile(file, outputFolder)
+        convertFile(file, outputFolder, extension)
         
 if __name__=='__main__':
     parser = argparse.ArgumentParser(
@@ -24,11 +24,12 @@ if __name__=='__main__':
     parser.add_argument('--filename', type=Path)
     parser.add_argument('--folder', type=Path)
     parser.add_argument('--outputFolder', default=Path.cwd(), type=Path)
+    parser.add_argument('--extension', default='.jpg')
 
     args = parser.parse_args()
 
     if args.filename is not None:
-        convertFile(args.filename, args.outputFolder)
+        convertFile(args.filename, args.outputFolder, extension=args.extension)
 
     if args.folder is not None:
-        loadFiles(args.folder, args.outputFolder)
+        loadFiles(args.folder, args.outputFolder, extension=args.extension)
