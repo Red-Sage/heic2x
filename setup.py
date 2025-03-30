@@ -8,6 +8,6 @@ setup(
     author='Red Sage',
     author_email='red.sage@outlool.com',
     license='All Rights Reserved',
-    packages=['heic2x'],
+
 
 )
