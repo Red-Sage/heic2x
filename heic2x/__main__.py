@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
-import heic2x.convertFile
-import heic2x.loadFiles
+from . import heic2x.convertFile
+from . import heic2x.loadFiles
 
 
 parser = argparse.ArgumentParser(

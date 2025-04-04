@@ -1,1 +1,0 @@
-from .heic2x import loadFiles
