@@ -1,8 +1,7 @@
 import argparse
 from pathlib import Path
-from . import heic2x.convertFile
-from . import heic2x.loadFiles
-
+from heic2x import heic2x
+from tkinter import filedialog as fd
 
 parser = argparse.ArgumentParser(
                                  prog='heic2jpg',
@@ -15,12 +14,21 @@ parser.add_argument('--outputFolder', default=Path.cwd(), type=Path)
 parser.add_argument('--extension', default='.jpg')
 args = parser.parse_args()
 
-print(args.filename)
-print(args.folder)
-
 if args.filename is not None:
-    convertFile(args.filename, args.outputFolder, extension=args.extension)
-
+    heic2x.convertFile(args.filename, args.outputFolder, extension=args.extension)
 
 if args.folder is not None:
-    loadFiles(args.folder, args.outputFolder, extension=args.extension)
+    heic2x.loadFiles(args.folder, args.outputFolder, extension=args.extension)
+
+if args.folder is None and args.filename is None:
+    filename = fd.askopenfile()
+    
+    if not filename is None:
+        filename = Path(filename.name)
+    else:
+        quit()
+
+    print(filename)
+    print(filename.parents[0])
+
+    heic2x.convertFile(filename, filename.parents[0], '.jpg')
